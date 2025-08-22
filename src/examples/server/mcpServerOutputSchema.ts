@@ -4,6 +4,7 @@
  * This demonstrates how to easily create tools with structured output
  */
 
+import {zodToJsonSchema} from "zod-to-json-schema";
 import { McpServer } from "../../server/mcp.js";
 import { StdioServerTransport } from "../../server/stdio.js";
 import { z } from "zod";
@@ -15,27 +16,37 @@ const server = new McpServer(
   }
 );
 
+const getWeatherSchema = z.object({
+  city: z.string().describe("City name"),
+  country: z.string().describe("Country code (e.g., US, UK)")
+});
+
+const getWeatherOutputSchema = z.object({
+  temperature: z.object({
+    celsius: z.number(),
+    fahrenheit: z.number()
+  }),
+  conditions: z.enum(["sunny", "cloudy", "rainy", "stormy", "snowy"]),
+  humidity: z.number().min(0).max(100),
+  wind: z.object({
+    speed_kmh: z.number(),
+    direction: z.string()
+  })
+});
+
 // Define a tool with structured output - Weather data
 server.registerTool(
   "get_weather",
   {
     description: "Get weather information for a city",
     inputSchema: {
-      city: z.string().describe("City name"),
-      country: z.string().describe("Country code (e.g., US, UK)")
+      schema: getWeatherSchema,
+      jsonSchema: zodToJsonSchema(getWeatherSchema)
     },
     outputSchema: {
-      temperature: z.object({
-        celsius: z.number(),
-        fahrenheit: z.number()
-      }),
-      conditions: z.enum(["sunny", "cloudy", "rainy", "stormy", "snowy"]),
-      humidity: z.number().min(0).max(100),
-      wind: z.object({
-        speed_kmh: z.number(),
-        direction: z.string()
-      })
-    },
+      schema: getWeatherOutputSchema,
+      jsonSchema: zodToJsonSchema(getWeatherOutputSchema)
+    }
   },
   async ({ city, country }) => {
     // Parameters are available but not used in this example

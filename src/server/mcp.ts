@@ -42,7 +42,7 @@ import { StandardSchemaV1 } from "@standard-schema/spec";
 
 type SchemaArg = {
   schema: StandardSchemaV1;
-  jsonSchema: Record<string, unknown> & { type: "object" };
+  jsonSchema: Record<string, unknown> ;
 }
 
 /**
