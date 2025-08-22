@@ -1,15 +1,6 @@
 import { Server, ServerOptions } from "./index.js";
-import {  zodToJsonSchema } from "zod-to-json-schema";
 import {
-  z,
-  ZodRawShape,
-  ZodObject,
   ZodString,
-  AnyZodObject,
-  ZodTypeAny,
-  ZodType,
-  ZodTypeDef,
-  ZodOptional,
 } from "zod";
 import {
   Implementation,
@@ -47,10 +38,11 @@ import { UriTemplate, Variables } from "../shared/uriTemplate.js";
 import { RequestHandlerExtra } from "../shared/protocol.js";
 import { Transport } from "../shared/transport.js";
 import { StandardSchemaV1 } from "@standard-schema/spec";
-import { JSONSchema7, JSONSchema7Object } from "json-schema";
 
-interface SchemaOptions<TSchemaType extends StandardSchemaV1> {
-  toJsonSchema: (schema: TSchemaType) => JSONSchema7Object;
+
+type SchemaArg = {
+  schema: StandardSchemaV1;
+  jsonSchema: Record<string, unknown> & { type: "object" };
 }
 
 /**
@@ -58,7 +50,7 @@ interface SchemaOptions<TSchemaType extends StandardSchemaV1> {
  * For advanced usage (like sending notifications or setting custom request handlers), use the underlying
  * Server instance available via the `server` property.
  */
-export class McpServer<TSchemaType extends StandardSchemaV1> {
+export class McpServer {
   /**
    * The underlying Server instance, useful for advanced operations like sending notifications.
    */
@@ -71,7 +63,7 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
   private _registeredTools: { [name: string]: RegisteredTool } = {};
   private _registeredPrompts: { [name: string]: RegisteredPrompt } = {};
 
-  constructor(serverInfo: Implementation, options?: ServerOptions, private readonly schemaOptions?: SchemaOptions<TSchemaType>) {
+  constructor(serverInfo: Implementation, options?: ServerOptions) {
     this.server = new Server(serverInfo, options);
   }
 
@@ -122,12 +114,12 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
               name,
               title: tool.title,
               description: tool.description,
-              inputSchema: tool.inputSchema ? this.schemaOptions?.toJsonSchema(tool.inputSchema as TSchemaType) as JSONSchema7 : EMPTY_OBJECT_JSON_SCHEMA,
+              inputSchema: tool.inputSchema ? tool.inputSchema.jsonSchema : EMPTY_OBJECT_JSON_SCHEMA,
               annotations: tool.annotations,
             };
 
             if (tool.outputSchema) {
-              toolDefinition.outputSchema =  this.schemaOptions?.toJsonSchema(tool.outputSchema as TSchemaType)
+              toolDefinition.outputSchema = tool.outputSchema.jsonSchema;
             }
 
             return toolDefinition;
@@ -157,7 +149,7 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
         let result: CallToolResult;
 
         if (tool.inputSchema) {
-          const parseResult = await tool.inputSchema['~standard'].validate(
+          const parseResult = await tool.inputSchema.schema['~standard'].validate(
             request.params.arguments,
           );
           if (parseResult.issues) {
@@ -168,7 +160,7 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
           }
 
           const args = parseResult.value;
-          const cb = tool.callback as ToolCallback<StandardSchemaV1>;
+          const cb = tool.callback as ToolCallback<SchemaArg>;
           try {
             result = await Promise.resolve(cb(args, extra));
           } catch (error) {
@@ -208,7 +200,7 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
           }
 
           // if the tool has an output schema, validate structured content
-          const parseResult = await tool.outputSchema?.['~standard'].validate(
+          const parseResult = await tool.outputSchema?.schema['~standard'].validate(
             result.structuredContent,
           );
           if (parseResult.issues) {
@@ -282,11 +274,13 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
       );
     }
 
-    if (!prompt.argsSchema) {
+    if (!prompt.argsSchema || !('shape' in prompt.argsSchema) || typeof prompt.argsSchema.shape !== 'object' || !prompt.argsSchema.shape) {
       return EMPTY_COMPLETION_RESULT;
     }
 
-    const field = prompt.argsSchema.shape[request.params.argument.name];
+
+    const shape = prompt.argsSchema.shape as Record<string, unknown>;
+    const field = shape[request.params.argument.name] 
     if (!(field instanceof Completable)) {
       return EMPTY_COMPLETION_RESULT;
     }
@@ -500,7 +494,7 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
         }
 
         if (prompt.argsSchema) {
-          const parseResult = await prompt.argsSchema?.['~standard'].validate(
+          const parseResult = await prompt.argsSchema?.schema['~standard'].validate(
             request.params.arguments,
           );
           if (parseResult.issues) {
@@ -768,10 +762,10 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
     name: string,
     title: string | undefined,
     description: string | undefined,
-    inputSchema: StandardSchemaV1 | undefined,
-    outputSchema: StandardSchemaV1 | undefined,
+    inputSchema: SchemaArg | undefined,
+    outputSchema: SchemaArg | undefined,
     annotations: ToolAnnotations | undefined,
-    callback: ToolCallback<StandardSchemaV1 | undefined>
+    callback: ToolCallback<SchemaArg | undefined>
   ): RegisteredTool {
     const registeredTool: RegisteredTool = {
       title,
@@ -793,7 +787,7 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
         }
         if (typeof updates.title !== "undefined") registeredTool.title = updates.title
         if (typeof updates.description !== "undefined") registeredTool.description = updates.description
-        if (typeof updates.paramsSchema !== "undefined") registeredTool.inputSchema =   updates.paramsSchema
+        if (typeof updates.paramsSchema !== "undefined") registeredTool.inputSchema = updates.paramsSchema
         if (typeof updates.callback !== "undefined") registeredTool.callback = updates.callback
         if (typeof updates.annotations !== "undefined") registeredTool.annotations = updates.annotations
         if (typeof updates.enabled !== "undefined") registeredTool.enabled = updates.enabled
@@ -825,7 +819,7 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
    * Note: We use a union type for the second parameter because TypeScript cannot reliably disambiguate
    * between ToolAnnotations and ZodRawShape during overload resolution, as both are plain object types.
    */
-  tool<Args extends StandardSchemaV1>(
+  tool<Args extends SchemaArg>(
     name: string,
     paramsSchemaOrAnnotations: Args | ToolAnnotations,
     cb: ToolCallback<Args>,
@@ -839,7 +833,7 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
    * Note: We use a union type for the third parameter because TypeScript cannot reliably disambiguate
    * between ToolAnnotations and ZodRawShape during overload resolution, as both are plain object types.
    */
-  tool<Args extends StandardSchemaV1>(
+  tool<Args extends SchemaArg>(
     name: string,
     description: string,
     paramsSchemaOrAnnotations: Args | ToolAnnotations,
@@ -849,7 +843,7 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
   /**
    * Registers a tool with both parameter schema and annotations.
    */
-  tool<Args extends StandardSchemaV1>(
+  tool<Args extends SchemaArg>(
     name: string,
     paramsSchema: Args,
     annotations: ToolAnnotations,
@@ -859,7 +853,7 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
   /**
    * Registers a tool with description, parameter schema, and annotations.
    */
-  tool<Args extends StandardSchemaV1>(
+  tool<Args extends SchemaArg>(
     name: string,
     description: string,
     paramsSchema: Args,
@@ -877,8 +871,8 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
     }
 
     let description: string | undefined;
-    let inputSchema: StandardSchemaV1 | undefined;
-    let outputSchema: StandardSchemaV1 | undefined;
+    let inputSchema: SchemaArg | undefined;
+    let outputSchema: SchemaArg | undefined;
     let annotations: ToolAnnotations | undefined;
 
     // Tool properties are passed as separate arguments, with omissions allowed.
@@ -894,12 +888,12 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
       // We have at least one more arg before the callback
       const firstArg = rest[0];
 
-      if (isStandardSchemaV1(firstArg)) {
+      if (isSchemaArg(firstArg)) {
         // We have a params schema as the first arg
-        inputSchema = rest.shift() as StandardSchemaV1;
+        inputSchema = rest.shift() as SchemaArg;
 
         // Check if the next arg is potentially annotations
-        if (rest.length > 1 && typeof rest[0] === "object" && rest[0] !== null && !isStandardSchemaV1(rest[0])) {
+        if (rest.length > 1 && typeof rest[0] === "object" && rest[0] !== null && !isSchemaArg(rest[0])) {
           // Case: tool(name, paramsSchema, annotations, cb)
           // Or: tool(name, description, paramsSchema, annotations, cb)
           annotations = rest.shift() as ToolAnnotations;
@@ -911,7 +905,7 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
         annotations = rest.shift() as ToolAnnotations;
       }
     }
-    const callback = rest[0] as ToolCallback<StandardSchemaV1 | undefined>;
+    const callback = rest[0] as ToolCallback<SchemaArg | undefined>;
 
     return this._createRegisteredTool(name, undefined, description, inputSchema, outputSchema, annotations, callback)
   }
@@ -919,7 +913,7 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
   /**
    * Registers a tool with a config object and callback.
    */
-  registerTool<InputArgs extends StandardSchemaV1, OutputArgs extends StandardSchemaV1>(
+  registerTool<InputArgs extends SchemaArg, OutputArgs extends SchemaArg>(
     name: string,
     config: {
       title?: string;
@@ -943,7 +937,7 @@ export class McpServer<TSchemaType extends StandardSchemaV1> {
       inputSchema,
       outputSchema,
       annotations,
-      cb as ToolCallback<StandardSchemaV1 | undefined>
+      cb as ToolCallback<SchemaArg>
     );
   }
 
@@ -1147,10 +1141,10 @@ export class ResourceTemplate {
  * - `content` if the tool does not have an outputSchema
  * - Both fields are optional but typically one should be provided
  */
-export type ToolCallback<Args extends undefined | StandardSchemaV1 = undefined> =
-  Args extends StandardSchemaV1
+export type ToolCallback<Args extends undefined | SchemaArg = undefined> =
+  Args extends SchemaArg
   ? (
-    args: StandardSchemaV1.InferOutput<Args>,
+    args: StandardSchemaV1.InferOutput<Args['schema']>,
     extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
   ) => CallToolResult | Promise<CallToolResult>
   : (extra: RequestHandlerExtra<ServerRequest, ServerNotification>) => CallToolResult | Promise<CallToolResult>;
@@ -1158,14 +1152,14 @@ export type ToolCallback<Args extends undefined | StandardSchemaV1 = undefined> 
 export type RegisteredTool = {
   title?: string;
   description?: string;
-  inputSchema?: StandardSchemaV1;
-  outputSchema?: StandardSchemaV1;
+  inputSchema?: SchemaArg;
+  outputSchema?: SchemaArg;
   annotations?: ToolAnnotations;
-  callback: ToolCallback<undefined | StandardSchemaV1>;
+  callback: ToolCallback<undefined | SchemaArg>;
   enabled: boolean;
   enable(): void;
   disable(): void;
-  update<InputArgs extends StandardSchemaV1, OutputArgs extends StandardSchemaV1>(
+  update<InputArgs extends SchemaArg, OutputArgs extends SchemaArg>(
     updates: {
       name?: string | null,
       title?: string,
@@ -1180,8 +1174,8 @@ export type RegisteredTool = {
 };
 
 
-const EMPTY_OBJECT_JSON_SCHEMA: JSONSchema7 = {
-  type: "object",
+const EMPTY_OBJECT_JSON_SCHEMA = {
+  type: "object" as const,
   properties: {},
 };
 
@@ -1239,13 +1233,13 @@ export type RegisteredResourceTemplate = {
   remove(): void
 };
 
-type PromptArgsRawShape = StandardSchemaV1;
+type PromptArgsRawShape = SchemaArg;
 
 export type PromptCallback<
   Args extends undefined | PromptArgsRawShape = undefined,
 > = Args extends PromptArgsRawShape
   ? (
-    args: StandardSchemaV1.InferOutput<Args>,
+    args: StandardSchemaV1.InferOutput<Args['schema']>,
     extra: RequestHandlerExtra<ServerRequest, ServerNotification>,
   ) => GetPromptResult | Promise<GetPromptResult>
   : (extra: RequestHandlerExtra<ServerRequest, ServerNotification>) => GetPromptResult | Promise<GetPromptResult>;
@@ -1265,11 +1259,13 @@ export type RegisteredPrompt = {
 function promptArgumentsFromSchema(
   schema: PromptArgsRawShape
 ): PromptArgument[] {
-  return Object.entries(schema.shape).map(
+  const properties = Object.entries(schema.jsonSchema.properties || {});
+  const required = schema.jsonSchema.required as string[] || [];
+  return properties.map(
     ([name, field]): PromptArgument => ({
       name,
       description: field.description,
-      required: !field.isOptional(),
+      required: required.includes(name),
     }),
   );
 }
@@ -1291,6 +1287,6 @@ const EMPTY_COMPLETION_RESULT: CompleteResult = {
   },
 };
 
-const isStandardSchemaV1 = (schema: unknown): schema is StandardSchemaV1 => {
-  return typeof schema === 'object' && schema !== null && '~standard' in schema;
+const isSchemaArg = (schema: unknown): schema is SchemaArg => {
+  return typeof schema === 'object' && schema !== null && 'schema' in schema && 'toJsonSchema' in schema;
 }

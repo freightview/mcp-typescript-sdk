@@ -908,7 +908,7 @@ export const ToolSchema = BaseMetadataSchema.extend({
    */
   inputSchema: z
     .object({
-      type: z.string().optional(),
+      type: z.literal("object"),
       properties: z.optional(z.object({}).passthrough()),
       required: z.optional(z.array(z.string())),
     })
@@ -919,11 +919,10 @@ export const ToolSchema = BaseMetadataSchema.extend({
    */
   outputSchema: z.optional(
     z.object({
-      type: z.string().optional(),
+      type: z.literal("object"),
       properties: z.optional(z.object({}).passthrough()),
       required: z.optional(z.array(z.string())),
-    })
-      .passthrough()
+    }).passthrough()
   ),
   /**
    * Optional additional tool information.
