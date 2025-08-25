@@ -40,7 +40,7 @@ import { Transport } from "../shared/transport.js";
 import { StandardSchemaV1 } from "@standard-schema/spec";
 
 
-type SchemaArg = {
+export type SchemaArg = {
   schema: StandardSchemaV1;
   jsonSchema: Record<string, unknown> ;
 }
@@ -106,26 +106,26 @@ export class McpServer {
     this.server.setRequestHandler(
       ListToolsRequestSchema,
       (): ListToolsResult => ({
-        tools: Object.entries(this._registeredTools).filter(
-          ([, tool]) => tool.enabled,
-        ).map(
-          ([name, tool]): Tool => {
-            const toolDefinition: Tool = {
-              name,
-              title: tool.title,
-              description: tool.description,
-              inputSchema: tool.inputSchema ? tool.inputSchema.jsonSchema : EMPTY_OBJECT_JSON_SCHEMA,
-              annotations: tool.annotations,
-            };
+          tools: Object.entries(this._registeredTools).filter(
+            ([, tool]) => tool.enabled,
+          ).map(
+            ([name, tool]): Tool => {
+              const toolDefinition: Tool = {
+                name,
+                title: tool.title,
+                description: tool.description,
+                inputSchema: tool.inputSchema ? tool.inputSchema.jsonSchema : EMPTY_OBJECT_JSON_SCHEMA,
+                annotations: tool.annotations,
+              };
 
-            if (tool.outputSchema) {
-              toolDefinition.outputSchema = tool.outputSchema.jsonSchema;
-            }
+              if (tool.outputSchema) {
+                toolDefinition.outputSchema = tool.outputSchema.jsonSchema;
+              }
 
-            return toolDefinition;
-          },
-        ),
-      }),
+              return toolDefinition;
+            },
+          ),
+        }),
     );
 
     this.server.setRequestHandler(
@@ -1288,5 +1288,5 @@ const EMPTY_COMPLETION_RESULT: CompleteResult = {
 };
 
 const isSchemaArg = (schema: unknown): schema is SchemaArg => {
-  return typeof schema === 'object' && schema !== null && 'schema' in schema && 'toJsonSchema' in schema;
+  return typeof schema === 'object' && schema !== null && 'schema' in schema && 'jsonSchema' in schema;
 }
