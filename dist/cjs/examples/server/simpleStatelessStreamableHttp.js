@@ -8,15 +8,20 @@ const mcp_js_1 = require("../../server/mcp.js");
 const streamableHttp_js_1 = require("../../server/streamableHttp.js");
 const zod_1 = require("zod");
 const cors_1 = __importDefault(require("cors"));
+const zod_to_json_schema_1 = require("zod-to-json-schema");
 const getServer = () => {
     // Create an MCP server with implementation details
     const server = new mcp_js_1.McpServer({
         name: 'stateless-streamable-http-server',
         version: '1.0.0',
     }, { capabilities: { logging: {} } });
+    const greetingTemplateSchema = zod_1.z.object({
+        name: zod_1.z.string().describe('Name to include in greeting'),
+    });
     // Register a simple prompt
     server.prompt('greeting-template', 'A simple greeting prompt template', {
-        name: zod_1.z.string().describe('Name to include in greeting'),
+        schema: greetingTemplateSchema,
+        jsonSchema: (0, zod_to_json_schema_1.zodToJsonSchema)(greetingTemplateSchema)
     }, async ({ name }) => {
         return {
             messages: [
@@ -30,10 +35,14 @@ const getServer = () => {
             ],
         };
     });
-    // Register a tool specifically for testing resumability
-    server.tool('start-notification-stream', 'Starts sending periodic notifications for testing resumability', {
+    const startNotificationStreamSchema = zod_1.z.object({
         interval: zod_1.z.number().describe('Interval in milliseconds between notifications').default(100),
         count: zod_1.z.number().describe('Number of notifications to send (0 for 100)').default(10),
+    });
+    // Register a tool specifically for testing resumability
+    server.tool('start-notification-stream', 'Starts sending periodic notifications for testing resumability', {
+        schema: startNotificationStreamSchema,
+        jsonSchema: (0, zod_to_json_schema_1.zodToJsonSchema)(startNotificationStreamSchema)
     }, async ({ interval, count }, { sendNotification }) => {
         const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
         let counter = 0;

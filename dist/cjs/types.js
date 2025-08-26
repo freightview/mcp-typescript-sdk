@@ -810,7 +810,7 @@ exports.ToolSchema = exports.BaseMetadataSchema.extend({
      */
     inputSchema: zod_1.z
         .object({
-        type: zod_1.z.literal("object"),
+        type: zod_1.z.string().optional(),
         properties: zod_1.z.optional(zod_1.z.object({}).passthrough()),
         required: zod_1.z.optional(zod_1.z.array(zod_1.z.string())),
     })
@@ -820,11 +820,10 @@ exports.ToolSchema = exports.BaseMetadataSchema.extend({
      * the structuredContent field of a CallToolResult.
      */
     outputSchema: zod_1.z.optional(zod_1.z.object({
-        type: zod_1.z.literal("object"),
+        type: zod_1.z.string().optional(),
         properties: zod_1.z.optional(zod_1.z.object({}).passthrough()),
         required: zod_1.z.optional(zod_1.z.array(zod_1.z.string())),
-    })
-        .passthrough()),
+    }).passthrough()),
     /**
      * Optional additional tool information.
      */

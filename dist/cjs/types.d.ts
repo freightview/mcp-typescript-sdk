@@ -15424,15 +15424,15 @@ export declare const ToolSchema: z.ZodObject<z.objectUtil.extendShape<{
      * A JSON Schema object defining the expected parameters for the tool.
      */
     inputSchema: z.ZodObject<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, z.ZodTypeAny, "passthrough">>;
@@ -15441,15 +15441,15 @@ export declare const ToolSchema: z.ZodObject<z.objectUtil.extendShape<{
      * the structuredContent field of a CallToolResult.
      */
     outputSchema: z.ZodOptional<z.ZodObject<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, z.ZodTypeAny, "passthrough">>>;
@@ -15597,15 +15597,15 @@ export declare const ToolSchema: z.ZodObject<z.objectUtil.extendShape<{
      * A JSON Schema object defining the expected parameters for the tool.
      */
     inputSchema: z.ZodObject<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, z.ZodTypeAny, "passthrough">>;
@@ -15614,15 +15614,15 @@ export declare const ToolSchema: z.ZodObject<z.objectUtil.extendShape<{
      * the structuredContent field of a CallToolResult.
      */
     outputSchema: z.ZodOptional<z.ZodObject<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, z.ZodTypeAny, "passthrough">>>;
@@ -15770,15 +15770,15 @@ export declare const ToolSchema: z.ZodObject<z.objectUtil.extendShape<{
      * A JSON Schema object defining the expected parameters for the tool.
      */
     inputSchema: z.ZodObject<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, z.ZodTypeAny, "passthrough">>;
@@ -15787,15 +15787,15 @@ export declare const ToolSchema: z.ZodObject<z.objectUtil.extendShape<{
      * the structuredContent field of a CallToolResult.
      */
     outputSchema: z.ZodOptional<z.ZodObject<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-        type: z.ZodLiteral<"object">;
+        type: z.ZodOptional<z.ZodString>;
         properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
         required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
     }, z.ZodTypeAny, "passthrough">>>;
@@ -16143,15 +16143,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -16160,15 +16160,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -16316,15 +16316,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -16333,15 +16333,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -16489,15 +16489,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -16506,15 +16506,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -16676,15 +16676,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -16693,15 +16693,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -16849,15 +16849,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -16866,15 +16866,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -17022,15 +17022,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -17039,15 +17039,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -17209,15 +17209,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -17226,15 +17226,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -17382,15 +17382,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -17399,15 +17399,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -17555,15 +17555,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -17572,15 +17572,15 @@ export declare const ListToolsResultSchema: z.ZodObject<z.objectUtil.extendShape
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -44183,15 +44183,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -44200,15 +44200,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -44356,15 +44356,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -44373,15 +44373,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -44529,15 +44529,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -44546,15 +44546,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -44716,15 +44716,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -44733,15 +44733,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -44889,15 +44889,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -44906,15 +44906,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -45062,15 +45062,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -45079,15 +45079,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -45249,15 +45249,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -45266,15 +45266,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -45422,15 +45422,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -45439,15 +45439,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;
@@ -45595,15 +45595,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * A JSON Schema object defining the expected parameters for the tool.
          */
         inputSchema: z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>;
@@ -45612,15 +45612,15 @@ export declare const ServerResultSchema: z.ZodUnion<[z.ZodObject<{
          * the structuredContent field of a CallToolResult.
          */
         outputSchema: z.ZodOptional<z.ZodObject<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, "passthrough", z.ZodTypeAny, z.objectOutputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">, z.objectInputType<{
-            type: z.ZodLiteral<"object">;
+            type: z.ZodOptional<z.ZodString>;
             properties: z.ZodOptional<z.ZodObject<{}, "passthrough", z.ZodTypeAny, z.objectOutputType<{}, z.ZodTypeAny, "passthrough">, z.objectInputType<{}, z.ZodTypeAny, "passthrough">>>;
             required: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
         }, z.ZodTypeAny, "passthrough">>>;

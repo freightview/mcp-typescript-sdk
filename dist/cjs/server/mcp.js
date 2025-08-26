@@ -2,8 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ResourceTemplate = exports.McpServer = void 0;
 const index_js_1 = require("./index.js");
-const zod_to_json_schema_1 = require("zod-to-json-schema");
-const zod_1 = require("zod");
 const types_js_1 = require("../types.js");
 const completable_js_1 = require("./completable.js");
 const uriTemplate_js_1 = require("../shared/uriTemplate.js");
@@ -55,20 +53,17 @@ class McpServer {
                     name,
                     title: tool.title,
                     description: tool.description,
-                    inputSchema: tool.inputSchema
-                        ? (0, zod_to_json_schema_1.zodToJsonSchema)(tool.inputSchema, {
-                            strictUnions: true,
-                        })
-                        : EMPTY_OBJECT_JSON_SCHEMA,
+                    inputSchema: tool.inputSchema ? tool.inputSchema.jsonSchema : EMPTY_OBJECT_JSON_SCHEMA,
                     annotations: tool.annotations,
                 };
                 if (tool.outputSchema) {
-                    toolDefinition.outputSchema = (0, zod_to_json_schema_1.zodToJsonSchema)(tool.outputSchema, { strictUnions: true });
+                    toolDefinition.outputSchema = tool.outputSchema.jsonSchema;
                 }
                 return toolDefinition;
             }),
         }));
         this.server.setRequestHandler(types_js_1.CallToolRequestSchema, async (request, extra) => {
+            var _a;
             const tool = this._registeredTools[request.params.name];
             if (!tool) {
                 throw new types_js_1.McpError(types_js_1.ErrorCode.InvalidParams, `Tool ${request.params.name} not found`);
@@ -78,11 +73,11 @@ class McpServer {
             }
             let result;
             if (tool.inputSchema) {
-                const parseResult = await tool.inputSchema.safeParseAsync(request.params.arguments);
-                if (!parseResult.success) {
-                    throw new types_js_1.McpError(types_js_1.ErrorCode.InvalidParams, `Invalid arguments for tool ${request.params.name}: ${parseResult.error.message}`);
+                const parseResult = await tool.inputSchema.schema['~standard'].validate(request.params.arguments);
+                if (parseResult.issues) {
+                    throw new types_js_1.McpError(types_js_1.ErrorCode.InvalidParams, `Invalid arguments for tool ${request.params.name}: ${parseResult.issues.map(issue => issue.message).join(", ")}`);
                 }
-                const args = parseResult.data;
+                const args = parseResult.value;
                 const cb = tool.callback;
                 try {
                     result = await Promise.resolve(cb(args, extra));
@@ -121,9 +116,9 @@ class McpServer {
                     throw new types_js_1.McpError(types_js_1.ErrorCode.InvalidParams, `Tool ${request.params.name} has an output schema but no structured content was provided`);
                 }
                 // if the tool has an output schema, validate structured content
-                const parseResult = await tool.outputSchema.safeParseAsync(result.structuredContent);
-                if (!parseResult.success) {
-                    throw new types_js_1.McpError(types_js_1.ErrorCode.InvalidParams, `Invalid structured content for tool ${request.params.name}: ${parseResult.error.message}`);
+                const parseResult = await ((_a = tool.outputSchema) === null || _a === void 0 ? void 0 : _a.schema['~standard'].validate(result.structuredContent));
+                if (parseResult.issues) {
+                    throw new types_js_1.McpError(types_js_1.ErrorCode.InvalidParams, `Invalid structured content for tool ${request.params.name}: ${parseResult.issues.map(issue => issue.message).join(", ")}`);
                 }
             }
             return result;
@@ -158,10 +153,11 @@ class McpServer {
         if (!prompt.enabled) {
             throw new types_js_1.McpError(types_js_1.ErrorCode.InvalidParams, `Prompt ${ref.name} disabled`);
         }
-        if (!prompt.argsSchema) {
+        if (!prompt.argsSchema || !('shape' in prompt.argsSchema) || typeof prompt.argsSchema.shape !== 'object' || !prompt.argsSchema.shape) {
             return EMPTY_COMPLETION_RESULT;
         }
-        const field = prompt.argsSchema.shape[request.params.argument.name];
+        const shape = prompt.argsSchema.shape;
+        const field = shape[request.params.argument.name];
         if (!(field instanceof completable_js_1.Completable)) {
             return EMPTY_COMPLETION_RESULT;
         }
@@ -273,6 +269,7 @@ class McpServer {
             }),
         }));
         this.server.setRequestHandler(types_js_1.GetPromptRequestSchema, async (request, extra) => {
+            var _a;
             const prompt = this._registeredPrompts[request.params.name];
             if (!prompt) {
                 throw new types_js_1.McpError(types_js_1.ErrorCode.InvalidParams, `Prompt ${request.params.name} not found`);
@@ -281,11 +278,11 @@ class McpServer {
                 throw new types_js_1.McpError(types_js_1.ErrorCode.InvalidParams, `Prompt ${request.params.name} disabled`);
             }
             if (prompt.argsSchema) {
-                const parseResult = await prompt.argsSchema.safeParseAsync(request.params.arguments);
-                if (!parseResult.success) {
-                    throw new types_js_1.McpError(types_js_1.ErrorCode.InvalidParams, `Invalid arguments for prompt ${request.params.name}: ${parseResult.error.message}`);
+                const parseResult = await ((_a = prompt.argsSchema) === null || _a === void 0 ? void 0 : _a.schema['~standard'].validate(request.params.arguments));
+                if (parseResult.issues) {
+                    throw new types_js_1.McpError(types_js_1.ErrorCode.InvalidParams, `Invalid arguments for prompt ${request.params.name}: ${parseResult.issues.map(issue => issue.message).join(", ")}`);
                 }
-                const args = parseResult.data;
+                const args = parseResult.value;
                 const cb = prompt.callback;
                 return await Promise.resolve(cb(args, extra));
             }
@@ -410,7 +407,7 @@ class McpServer {
         const registeredPrompt = {
             title,
             description,
-            argsSchema: argsSchema === undefined ? undefined : zod_1.z.object(argsSchema),
+            argsSchema: argsSchema === undefined ? undefined : argsSchema,
             callback,
             enabled: true,
             disable: () => registeredPrompt.update({ enabled: false }),
@@ -427,7 +424,7 @@ class McpServer {
                 if (typeof updates.description !== "undefined")
                     registeredPrompt.description = updates.description;
                 if (typeof updates.argsSchema !== "undefined")
-                    registeredPrompt.argsSchema = zod_1.z.object(updates.argsSchema);
+                    registeredPrompt.argsSchema = updates.argsSchema;
                 if (typeof updates.callback !== "undefined")
                     registeredPrompt.callback = updates.callback;
                 if (typeof updates.enabled !== "undefined")
@@ -442,8 +439,8 @@ class McpServer {
         const registeredTool = {
             title,
             description,
-            inputSchema: inputSchema === undefined ? undefined : zod_1.z.object(inputSchema),
-            outputSchema: outputSchema === undefined ? undefined : zod_1.z.object(outputSchema),
+            inputSchema: inputSchema === undefined ? undefined : inputSchema,
+            outputSchema: outputSchema === undefined ? undefined : outputSchema,
             annotations,
             callback,
             enabled: true,
@@ -461,7 +458,7 @@ class McpServer {
                 if (typeof updates.description !== "undefined")
                     registeredTool.description = updates.description;
                 if (typeof updates.paramsSchema !== "undefined")
-                    registeredTool.inputSchema = zod_1.z.object(updates.paramsSchema);
+                    registeredTool.inputSchema = updates.paramsSchema;
                 if (typeof updates.callback !== "undefined")
                     registeredTool.callback = updates.callback;
                 if (typeof updates.annotations !== "undefined")
@@ -497,11 +494,11 @@ class McpServer {
         if (rest.length > 1) {
             // We have at least one more arg before the callback
             const firstArg = rest[0];
-            if (isZodRawShape(firstArg)) {
+            if (isSchemaArg(firstArg)) {
                 // We have a params schema as the first arg
                 inputSchema = rest.shift();
                 // Check if the next arg is potentially annotations
-                if (rest.length > 1 && typeof rest[0] === "object" && rest[0] !== null && !(isZodRawShape(rest[0]))) {
+                if (rest.length > 1 && typeof rest[0] === "object" && rest[0] !== null && !isSchemaArg(rest[0])) {
                     // Case: tool(name, paramsSchema, annotations, cb)
                     // Or: tool(name, description, paramsSchema, annotations, cb)
                     annotations = rest.shift();
@@ -628,26 +625,13 @@ const EMPTY_OBJECT_JSON_SCHEMA = {
     type: "object",
     properties: {},
 };
-// Helper to check if an object is a Zod schema (ZodRawShape)
-function isZodRawShape(obj) {
-    if (typeof obj !== "object" || obj === null)
-        return false;
-    const isEmptyObject = Object.keys(obj).length === 0;
-    // Check if object is empty or at least one property is a ZodType instance
-    // Note: use heuristic check to avoid instanceof failure across different Zod versions
-    return isEmptyObject || Object.values(obj).some(isZodTypeLike);
-}
-function isZodTypeLike(value) {
-    return value !== null &&
-        typeof value === 'object' &&
-        'parse' in value && typeof value.parse === 'function' &&
-        'safeParse' in value && typeof value.safeParse === 'function';
-}
 function promptArgumentsFromSchema(schema) {
-    return Object.entries(schema.shape).map(([name, field]) => ({
+    const properties = Object.entries(schema.jsonSchema.properties || {});
+    const required = schema.jsonSchema.required || [];
+    return properties.map(([name, field]) => ({
         name,
         description: field.description,
-        required: !field.isOptional(),
+        required: required.includes(name),
     }));
 }
 function createCompletionResult(suggestions) {
@@ -664,5 +648,8 @@ const EMPTY_COMPLETION_RESULT = {
         values: [],
         hasMore: false,
     },
+};
+const isSchemaArg = (schema) => {
+    return typeof schema === 'object' && schema !== null && 'schema' in schema && 'jsonSchema' in schema;
 };
 //# sourceMappingURL=mcp.js.map

@@ -3,15 +3,20 @@ import { McpServer } from '../../server/mcp.js';
 import { StreamableHTTPServerTransport } from '../../server/streamableHttp.js';
 import { z } from 'zod';
 import cors from 'cors';
+import { zodToJsonSchema } from 'zod-to-json-schema';
 const getServer = () => {
     // Create an MCP server with implementation details
     const server = new McpServer({
         name: 'stateless-streamable-http-server',
         version: '1.0.0',
     }, { capabilities: { logging: {} } });
+    const greetingTemplateSchema = z.object({
+        name: z.string().describe('Name to include in greeting'),
+    });
     // Register a simple prompt
     server.prompt('greeting-template', 'A simple greeting prompt template', {
-        name: z.string().describe('Name to include in greeting'),
+        schema: greetingTemplateSchema,
+        jsonSchema: zodToJsonSchema(greetingTemplateSchema)
     }, async ({ name }) => {
         return {
             messages: [
@@ -25,10 +30,14 @@ const getServer = () => {
             ],
         };
     });
-    // Register a tool specifically for testing resumability
-    server.tool('start-notification-stream', 'Starts sending periodic notifications for testing resumability', {
+    const startNotificationStreamSchema = z.object({
         interval: z.number().describe('Interval in milliseconds between notifications').default(100),
         count: z.number().describe('Number of notifications to send (0 for 100)').default(10),
+    });
+    // Register a tool specifically for testing resumability
+    server.tool('start-notification-stream', 'Starts sending periodic notifications for testing resumability', {
+        schema: startNotificationStreamSchema,
+        jsonSchema: zodToJsonSchema(startNotificationStreamSchema)
     }, async ({ interval, count }, { sendNotification }) => {
         const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
         let counter = 0;

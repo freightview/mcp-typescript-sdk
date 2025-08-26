@@ -1,6 +1,7 @@
 "use strict";
 // Run with: npx tsx src/examples/server/toolWithSampleServer.ts
 Object.defineProperty(exports, "__esModule", { value: true });
+const zod_to_json_schema_1 = require("zod-to-json-schema");
 const mcp_js_1 = require("../../server/mcp.js");
 const stdio_js_1 = require("../../server/stdio.js");
 const zod_1 = require("zod");
@@ -8,11 +9,15 @@ const mcpServer = new mcp_js_1.McpServer({
     name: "tools-with-sample-server",
     version: "1.0.0",
 });
+const summarizeSchema = zod_1.z.object({
+    text: zod_1.z.string().describe("Text to summarize"),
+});
 // Tool that uses LLM sampling to summarize any text
 mcpServer.registerTool("summarize", {
     description: "Summarize any text using an LLM",
     inputSchema: {
-        text: zod_1.z.string().describe("Text to summarize"),
+        schema: summarizeSchema,
+        jsonSchema: (0, zod_to_json_schema_1.zodToJsonSchema)(summarizeSchema)
     },
 }, async ({ text }) => {
     // Call the LLM through MCP sampling

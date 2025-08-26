@@ -5,6 +5,7 @@
  * This demonstrates how to easily create tools with structured output
  */
 Object.defineProperty(exports, "__esModule", { value: true });
+const zod_to_json_schema_1 = require("zod-to-json-schema");
 const mcp_js_1 = require("../../server/mcp.js");
 const stdio_js_1 = require("../../server/stdio.js");
 const zod_1 = require("zod");
@@ -12,25 +13,33 @@ const server = new mcp_js_1.McpServer({
     name: "mcp-output-schema-high-level-example",
     version: "1.0.0",
 });
+const getWeatherSchema = zod_1.z.object({
+    city: zod_1.z.string().describe("City name"),
+    country: zod_1.z.string().describe("Country code (e.g., US, UK)")
+});
+const getWeatherOutputSchema = zod_1.z.object({
+    temperature: zod_1.z.object({
+        celsius: zod_1.z.number(),
+        fahrenheit: zod_1.z.number()
+    }),
+    conditions: zod_1.z.enum(["sunny", "cloudy", "rainy", "stormy", "snowy"]),
+    humidity: zod_1.z.number().min(0).max(100),
+    wind: zod_1.z.object({
+        speed_kmh: zod_1.z.number(),
+        direction: zod_1.z.string()
+    })
+});
 // Define a tool with structured output - Weather data
 server.registerTool("get_weather", {
     description: "Get weather information for a city",
     inputSchema: {
-        city: zod_1.z.string().describe("City name"),
-        country: zod_1.z.string().describe("Country code (e.g., US, UK)")
+        schema: getWeatherSchema,
+        jsonSchema: (0, zod_to_json_schema_1.zodToJsonSchema)(getWeatherSchema)
     },
     outputSchema: {
-        temperature: zod_1.z.object({
-            celsius: zod_1.z.number(),
-            fahrenheit: zod_1.z.number()
-        }),
-        conditions: zod_1.z.enum(["sunny", "cloudy", "rainy", "stormy", "snowy"]),
-        humidity: zod_1.z.number().min(0).max(100),
-        wind: zod_1.z.object({
-            speed_kmh: zod_1.z.number(),
-            direction: zod_1.z.string()
-        })
-    },
+        schema: getWeatherOutputSchema,
+        jsonSchema: (0, zod_to_json_schema_1.zodToJsonSchema)(getWeatherOutputSchema)
+    }
 }, async ({ city, country }) => {
     // Parameters are available but not used in this example
     void city;

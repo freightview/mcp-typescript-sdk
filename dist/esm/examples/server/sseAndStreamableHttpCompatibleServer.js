@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { isInitializeRequest } from '../../types.js';
 import { InMemoryEventStore } from '../shared/inMemoryEventStore.js';
 import cors from 'cors';
+import { zodToJsonSchema } from 'zod-to-json-schema';
 /**
  * This example server demonstrates backwards compatibility with both:
  * 1. The deprecated HTTP+SSE transport (protocol version 2024-11-05)
@@ -22,10 +23,14 @@ const getServer = () => {
         name: 'backwards-compatible-server',
         version: '1.0.0',
     }, { capabilities: { logging: {} } });
-    // Register a simple tool that sends notifications over time
-    server.tool('start-notification-stream', 'Starts sending periodic notifications for testing resumability', {
+    const startNotificationStreamSchema = z.object({
         interval: z.number().describe('Interval in milliseconds between notifications').default(100),
         count: z.number().describe('Number of notifications to send (0 for 100)').default(50),
+    });
+    // Register a simple tool that sends notifications over time
+    server.tool('start-notification-stream', 'Starts sending periodic notifications for testing resumability', {
+        schema: startNotificationStreamSchema,
+        jsonSchema: zodToJsonSchema(startNotificationStreamSchema)
     }, async ({ interval, count }, { sendNotification }) => {
         const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
         let counter = 0;

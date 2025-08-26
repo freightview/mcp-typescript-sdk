@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const mcp_js_1 = require("../../server/mcp.js");
 const sse_js_1 = require("../../server/sse.js");
 const zod_1 = require("zod");
+const zod_to_json_schema_1 = require("zod-to-json-schema");
 /**
  * This example server demonstrates the deprecated HTTP+SSE transport
  * (protocol version 2024-11-05). It mainly used for testing backward compatible clients.
@@ -22,9 +23,13 @@ const getServer = () => {
         name: 'simple-sse-server',
         version: '1.0.0',
     }, { capabilities: { logging: {} } });
-    server.tool('start-notification-stream', 'Starts sending periodic notifications', {
+    const startNotificationStreamSchema = zod_1.z.object({
         interval: zod_1.z.number().describe('Interval in milliseconds between notifications').default(1000),
         count: zod_1.z.number().describe('Number of notifications to send').default(10),
+    });
+    server.tool('start-notification-stream', 'Starts sending periodic notifications', {
+        schema: startNotificationStreamSchema,
+        jsonSchema: (0, zod_to_json_schema_1.zodToJsonSchema)(startNotificationStreamSchema)
     }, async ({ interval, count }, { sendNotification }) => {
         const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
         let counter = 0;

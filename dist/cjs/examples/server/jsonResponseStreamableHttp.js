@@ -10,6 +10,7 @@ const streamableHttp_js_1 = require("../../server/streamableHttp.js");
 const zod_1 = require("zod");
 const types_js_1 = require("../../types.js");
 const cors_1 = __importDefault(require("cors"));
+const zod_to_json_schema_1 = require("zod-to-json-schema");
 // Create an MCP server with implementation details
 const getServer = () => {
     const server = new mcp_js_1.McpServer({
@@ -20,9 +21,13 @@ const getServer = () => {
             logging: {},
         }
     });
+    const greetSchema = zod_1.z.object({
+        name: zod_1.z.string().describe('Name to greet'),
+    });
     // Register a simple tool that returns a greeting
     server.tool('greet', 'A simple greeting tool', {
-        name: zod_1.z.string().describe('Name to greet'),
+        schema: greetSchema,
+        jsonSchema: (0, zod_to_json_schema_1.zodToJsonSchema)(greetSchema)
     }, async ({ name }) => {
         return {
             content: [
@@ -33,9 +38,13 @@ const getServer = () => {
             ],
         };
     });
+    const multiGreetSchema = zod_1.z.object({
+        name: zod_1.z.string().describe('Name to greet'),
+    });
     // Register a tool that sends multiple greetings with notifications
     server.tool('multi-greet', 'A tool that sends different greetings with delays between them', {
-        name: zod_1.z.string().describe('Name to greet'),
+        schema: multiGreetSchema,
+        jsonSchema: (0, zod_to_json_schema_1.zodToJsonSchema)(multiGreetSchema)
     }, async ({ name }, { sendNotification }) => {
         const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
         await sendNotification({

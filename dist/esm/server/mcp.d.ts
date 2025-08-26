@@ -1,9 +1,13 @@
 import { Server, ServerOptions } from "./index.js";
-import { z, ZodRawShape, ZodObject, AnyZodObject, ZodTypeAny, ZodType, ZodTypeDef, ZodOptional } from "zod";
 import { Implementation, CallToolResult, Resource, ListResourcesResult, GetPromptResult, ReadResourceResult, ServerRequest, ServerNotification, ToolAnnotations } from "../types.js";
 import { UriTemplate, Variables } from "../shared/uriTemplate.js";
 import { RequestHandlerExtra } from "../shared/protocol.js";
 import { Transport } from "../shared/transport.js";
+import { StandardSchemaV1 } from "@standard-schema/spec";
+export type SchemaArg = {
+    schema: StandardSchemaV1;
+    jsonSchema: Record<string, unknown>;
+};
 /**
  * High-level MCP server that provides a simpler API for working with resources, tools, and prompts.
  * For advanced usage (like sending notifications or setting custom request handlers), use the underlying
@@ -80,7 +84,7 @@ export declare class McpServer {
      * Note: We use a union type for the second parameter because TypeScript cannot reliably disambiguate
      * between ToolAnnotations and ZodRawShape during overload resolution, as both are plain object types.
      */
-    tool<Args extends ZodRawShape>(name: string, paramsSchemaOrAnnotations: Args | ToolAnnotations, cb: ToolCallback<Args>): RegisteredTool;
+    tool<Args extends SchemaArg>(name: string, paramsSchemaOrAnnotations: Args | ToolAnnotations, cb: ToolCallback<Args>): RegisteredTool;
     /**
      * Registers a tool `name` (with a description) taking either parameter schema or annotations.
      * This unified overload handles both `tool(name, description, paramsSchema, cb)` and
@@ -89,19 +93,19 @@ export declare class McpServer {
      * Note: We use a union type for the third parameter because TypeScript cannot reliably disambiguate
      * between ToolAnnotations and ZodRawShape during overload resolution, as both are plain object types.
      */
-    tool<Args extends ZodRawShape>(name: string, description: string, paramsSchemaOrAnnotations: Args | ToolAnnotations, cb: ToolCallback<Args>): RegisteredTool;
+    tool<Args extends SchemaArg>(name: string, description: string, paramsSchemaOrAnnotations: Args | ToolAnnotations, cb: ToolCallback<Args>): RegisteredTool;
     /**
      * Registers a tool with both parameter schema and annotations.
      */
-    tool<Args extends ZodRawShape>(name: string, paramsSchema: Args, annotations: ToolAnnotations, cb: ToolCallback<Args>): RegisteredTool;
+    tool<Args extends SchemaArg>(name: string, paramsSchema: Args, annotations: ToolAnnotations, cb: ToolCallback<Args>): RegisteredTool;
     /**
      * Registers a tool with description, parameter schema, and annotations.
      */
-    tool<Args extends ZodRawShape>(name: string, description: string, paramsSchema: Args, annotations: ToolAnnotations, cb: ToolCallback<Args>): RegisteredTool;
+    tool<Args extends SchemaArg>(name: string, description: string, paramsSchema: Args, annotations: ToolAnnotations, cb: ToolCallback<Args>): RegisteredTool;
     /**
      * Registers a tool with a config object and callback.
      */
-    registerTool<InputArgs extends ZodRawShape, OutputArgs extends ZodRawShape>(name: string, config: {
+    registerTool<InputArgs extends SchemaArg, OutputArgs extends SchemaArg>(name: string, config: {
         title?: string;
         description?: string;
         inputSchema?: InputArgs;
@@ -198,18 +202,18 @@ export declare class ResourceTemplate {
  * - `content` if the tool does not have an outputSchema
  * - Both fields are optional but typically one should be provided
  */
-export type ToolCallback<Args extends undefined | ZodRawShape = undefined> = Args extends ZodRawShape ? (args: z.objectOutputType<Args, ZodTypeAny>, extra: RequestHandlerExtra<ServerRequest, ServerNotification>) => CallToolResult | Promise<CallToolResult> : (extra: RequestHandlerExtra<ServerRequest, ServerNotification>) => CallToolResult | Promise<CallToolResult>;
+export type ToolCallback<Args extends undefined | SchemaArg = undefined> = Args extends SchemaArg ? (args: StandardSchemaV1.InferOutput<Args['schema']>, extra: RequestHandlerExtra<ServerRequest, ServerNotification>) => CallToolResult | Promise<CallToolResult> : (extra: RequestHandlerExtra<ServerRequest, ServerNotification>) => CallToolResult | Promise<CallToolResult>;
 export type RegisteredTool = {
     title?: string;
     description?: string;
-    inputSchema?: AnyZodObject;
-    outputSchema?: AnyZodObject;
+    inputSchema?: SchemaArg;
+    outputSchema?: SchemaArg;
     annotations?: ToolAnnotations;
-    callback: ToolCallback<undefined | ZodRawShape>;
+    callback: ToolCallback<undefined | SchemaArg>;
     enabled: boolean;
     enable(): void;
     disable(): void;
-    update<InputArgs extends ZodRawShape, OutputArgs extends ZodRawShape>(updates: {
+    update<InputArgs extends SchemaArg, OutputArgs extends SchemaArg>(updates: {
         name?: string | null;
         title?: string;
         description?: string;
@@ -273,14 +277,12 @@ export type RegisteredResourceTemplate = {
     }): void;
     remove(): void;
 };
-type PromptArgsRawShape = {
-    [k: string]: ZodType<string, ZodTypeDef, string> | ZodOptional<ZodType<string, ZodTypeDef, string>>;
-};
-export type PromptCallback<Args extends undefined | PromptArgsRawShape = undefined> = Args extends PromptArgsRawShape ? (args: z.objectOutputType<Args, ZodTypeAny>, extra: RequestHandlerExtra<ServerRequest, ServerNotification>) => GetPromptResult | Promise<GetPromptResult> : (extra: RequestHandlerExtra<ServerRequest, ServerNotification>) => GetPromptResult | Promise<GetPromptResult>;
+type PromptArgsRawShape = SchemaArg;
+export type PromptCallback<Args extends undefined | PromptArgsRawShape = undefined> = Args extends PromptArgsRawShape ? (args: StandardSchemaV1.InferOutput<Args['schema']>, extra: RequestHandlerExtra<ServerRequest, ServerNotification>) => GetPromptResult | Promise<GetPromptResult> : (extra: RequestHandlerExtra<ServerRequest, ServerNotification>) => GetPromptResult | Promise<GetPromptResult>;
 export type RegisteredPrompt = {
     title?: string;
     description?: string;
-    argsSchema?: ZodObject<PromptArgsRawShape>;
+    argsSchema?: PromptArgsRawShape;
     callback: PromptCallback<undefined | PromptArgsRawShape>;
     enabled: boolean;
     enable(): void;
