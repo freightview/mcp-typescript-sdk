@@ -1,6 +1,7 @@
 
 // Run with: npx tsx src/examples/server/toolWithSampleServer.ts
 
+import {zodToJsonSchema} from "zod-to-json-schema";
 import { McpServer } from "../../server/mcp.js";
 import { StdioServerTransport } from "../../server/stdio.js";
 import { z } from "zod";
@@ -10,13 +11,18 @@ const mcpServer = new McpServer({
   version: "1.0.0",
 });
 
+const summarizeSchema = z.object({
+  text: z.string().describe("Text to summarize"),
+});
+
 // Tool that uses LLM sampling to summarize any text
 mcpServer.registerTool(
   "summarize",
   {
     description: "Summarize any text using an LLM",
     inputSchema: {
-      text: z.string().describe("Text to summarize"),
+        schema: summarizeSchema,
+        jsonSchema: zodToJsonSchema(summarizeSchema)
     },
   },
   async ({ text }) => {

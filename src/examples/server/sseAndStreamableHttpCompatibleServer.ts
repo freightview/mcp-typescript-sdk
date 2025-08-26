@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { CallToolResult, isInitializeRequest } from '../../types.js';
 import { InMemoryEventStore } from '../shared/inMemoryEventStore.js';
 import cors from 'cors';
+import { zodToJsonSchema } from 'zod-to-json-schema';
 
 /**
  * This example server demonstrates backwards compatibility with both:
@@ -25,13 +26,18 @@ const getServer = () => {
     version: '1.0.0',
   }, { capabilities: { logging: {} } });
 
+  const startNotificationStreamSchema = z.object({
+    interval: z.number().describe('Interval in milliseconds between notifications').default(100),
+    count: z.number().describe('Number of notifications to send (0 for 100)').default(50),
+  });
+
   // Register a simple tool that sends notifications over time
   server.tool(
     'start-notification-stream',
     'Starts sending periodic notifications for testing resumability',
     {
-      interval: z.number().describe('Interval in milliseconds between notifications').default(100),
-      count: z.number().describe('Number of notifications to send (0 for 100)').default(50),
+      schema: startNotificationStreamSchema,
+      jsonSchema: zodToJsonSchema(startNotificationStreamSchema)
     },
     async ({ interval, count }, { sendNotification }): Promise<CallToolResult> => {
       const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));

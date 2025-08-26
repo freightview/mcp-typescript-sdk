@@ -5,6 +5,7 @@ import { StreamableHTTPServerTransport } from '../../server/streamableHttp.js';
 import { z } from 'zod';
 import { CallToolResult, isInitializeRequest } from '../../types.js';
 import cors from 'cors';
+import { zodToJsonSchema } from 'zod-to-json-schema';
 
 
 // Create an MCP server with implementation details
@@ -18,12 +19,17 @@ const getServer = () => {
     }
   });
 
+  const greetSchema = z.object({
+    name: z.string().describe('Name to greet'),
+  });
+
   // Register a simple tool that returns a greeting
-  server.tool(
+  server.tool (
     'greet',
     'A simple greeting tool',
     {
-      name: z.string().describe('Name to greet'),
+      schema: greetSchema,
+      jsonSchema: zodToJsonSchema(greetSchema)
     },
     async ({ name }): Promise<CallToolResult> => {
       return {
@@ -37,12 +43,17 @@ const getServer = () => {
     }
   );
 
+  const multiGreetSchema = z.object({
+    name: z.string().describe('Name to greet'),
+  });
+
   // Register a tool that sends multiple greetings with notifications
   server.tool(
     'multi-greet',
     'A tool that sends different greetings with delays between them',
     {
-      name: z.string().describe('Name to greet'),
+      schema: multiGreetSchema,
+      jsonSchema: zodToJsonSchema(multiGreetSchema)
     },
     async ({ name }, { sendNotification }): Promise<CallToolResult> => {
       const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
