@@ -12,6 +12,7 @@ import { OAuthMetadata } from 'src/shared/auth.js';
 import { checkResourceAllowed } from 'src/shared/auth-utils.js';
 
 import cors from 'cors';
+import {zodToJsonSchema} from 'zod-to-json-schema';
 
 // Check for OAuth flag
 const useOAuth = process.argv.includes('--oauth');
@@ -24,6 +25,10 @@ const getServer = () => {
     version: '1.0.0'
   }, { capabilities: { logging: {} } });
 
+  const greetSchema = z.object({
+    name: z.string().describe('Name to greet'),
+  });
+
   // Register a simple tool that returns a greeting
   server.registerTool(
     'greet',
@@ -31,8 +36,9 @@ const getServer = () => {
       title: 'Greeting Tool',  // Display name for UI
       description: 'A simple greeting tool',
       inputSchema: {
-        name: z.string().describe('Name to greet'),
-      },
+        schema: greetSchema,
+        jsonSchema: zodToJsonSchema(greetSchema)
+      }
     },
     async ({ name }): Promise<CallToolResult> => {
       return {
@@ -46,12 +52,17 @@ const getServer = () => {
     }
   );
 
+  const multiGreetSchema = z.object({
+    name: z.string().describe('Name to greet'),
+  });
+
   // Register a tool that sends multiple greetings with notifications (with annotations)
   server.tool(
     'multi-greet',
     'A tool that sends different greetings with delays between them',
     {
-      name: z.string().describe('Name to greet'),
+      schema: multiGreetSchema,
+      jsonSchema: zodToJsonSchema(multiGreetSchema)
     },
     {
       title: 'Multiple Greeting Tool',
@@ -90,13 +101,19 @@ const getServer = () => {
       };
     }
   );
+
+  const collectUserInfoSchema = z.object({
+    infoType: z.enum(['contact', 'preferences', 'feedback']).describe('Type of information to collect'),
+  });
+
   // Register a tool that demonstrates elicitation (user input collection)
   // This creates a closure that captures the server instance
   server.tool(
     'collect-user-info',
     'A tool that collects user information through elicitation',
     {
-      infoType: z.enum(['contact', 'preferences', 'feedback']).describe('Type of information to collect'),
+      schema: collectUserInfoSchema,
+      jsonSchema: zodToJsonSchema(collectUserInfoSchema)
     },
     async ({ infoType }): Promise<CallToolResult> => {
       let message: string;
@@ -240,6 +257,10 @@ const getServer = () => {
     }
   );
 
+  const greetingTemplateSchema = z.object({
+    name: z.string().describe('Name to include in greeting'),
+  });
+
   // Register a simple prompt with title
   server.registerPrompt(
     'greeting-template',
@@ -247,7 +268,8 @@ const getServer = () => {
       title: 'Greeting Template',  // Display name for UI
       description: 'A simple greeting prompt template',
       argsSchema: {
-        name: z.string().describe('Name to include in greeting'),
+        schema: greetingTemplateSchema,
+        jsonSchema: zodToJsonSchema(greetingTemplateSchema)
       },
     },
     async ({ name }): Promise<GetPromptResult> => {
@@ -265,13 +287,18 @@ const getServer = () => {
     }
   );
 
+  const startNotificationStreamSchema = z.object({
+    interval: z.number().describe('Interval in milliseconds between notifications').default(100),
+    count: z.number().describe('Number of notifications to send (0 for 100)').default(50),
+  });
+
   // Register a tool specifically for testing resumability
   server.tool(
     'start-notification-stream',
     'Starts sending periodic notifications for testing resumability',
     {
-      interval: z.number().describe('Interval in milliseconds between notifications').default(100),
-      count: z.number().describe('Number of notifications to send (0 for 100)').default(50),
+      schema: startNotificationStreamSchema,
+      jsonSchema: zodToJsonSchema(startNotificationStreamSchema)
     },
     async ({ interval, count }, { sendNotification }): Promise<CallToolResult> => {
       const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -368,6 +395,10 @@ const getServer = () => {
     }
   );
 
+  const listFilesSchema = z.object({
+    includeDescriptions: z.boolean().optional().describe('Whether to include descriptions in the resource links'),
+  });
+
   // Register a tool that returns ResourceLinks
   server.registerTool(
     'list-files',
@@ -375,7 +406,8 @@ const getServer = () => {
       title: 'List Files with ResourceLinks',
       description: 'Returns a list of files as ResourceLinks without embedding their content',
       inputSchema: {
-        includeDescriptions: z.boolean().optional().describe('Whether to include descriptions in the resource links'),
+        schema: listFilesSchema,
+        jsonSchema: zodToJsonSchema(listFilesSchema) 
       },
     },
     async ({ includeDescriptions = true }): Promise<CallToolResult> => {
