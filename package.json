@@ -1,5 +1,5 @@
 {
-  "name": "@modelcontextprotocol/sdk",
+  "name": "@freightview/mcp-sdk",
   "version": "1.17.4",
   "description": "Model Context Protocol implementation for TypeScript",
   "license": "MIT",
